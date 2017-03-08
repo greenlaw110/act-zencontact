@@ -1,6 +1,6 @@
-# ActFramework Validation Demo
+# ZenContact in ActFramework
 
-This application demonstrates how to use implement Java validation in actframework application
+This application port [PlayFramework v1.x](https://github.com/playframework/play1)'s [zencontact](https://github.com/playframework/play1/tree/master/samples-and-tests/zencontact) sample to [ActFramework](http://actframework.org)
 
 ## Start the application
 
