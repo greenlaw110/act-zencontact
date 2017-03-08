@@ -1,0 +1,16 @@
+*.iml
+target
+.idea
+classes
+*.log
+*.DS_Store
+*all.sql
+tmp/
+**/.act*
+**/.classpath
+**/.settings
+**/.project
+**/.project
+**/.settings/
+fullstack-app/helloworld/_sys_start.do.not.delete
+fullstack-app/helloworld/act_start.id
