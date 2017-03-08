@@ -21,3 +21,6 @@ unzip *
 
 Once application has been started, you can open browser and locate to `http://localhost:5460` get the home page.
 
+## DEMO site
+
+[http://zencontact.actframework.org](http://zencontact.actframework.org/)
