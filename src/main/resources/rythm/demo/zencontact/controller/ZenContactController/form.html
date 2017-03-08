@@ -1,0 +1,37 @@
+@extends(main, title: "Form", formTitle: (null == contact || contact._isNew() ? "New" : "Edit"))
+@args Contact contact
+<form action="/contacts" method="post">
+    <input type="hidden" name="contact.id" value="@contact?.getId()">
+    
+    <p class="field">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="contact.name" value="@contact?.name">
+        <span class="error">@_error("contact.name")</span>
+    </p>
+
+    <p class="field">
+        <label for="firstname">First name:</label>
+        <input type="text" id="firstname" name="contact.firstname" value="@contact?.firstname">
+        <span class="error">@_error("contact.firstname")</span>
+    </p>
+
+    <p class="field">
+        <label for="birthdate">Birth date:</label>
+        <input type="text" id="birthdate" name="contact.birthdate" value="@contact?.birthdate?.format("yyyy-MM-dd")">
+        <span class="error">@_error("contact.birthdate")</span>
+    </p>
+
+    <p class="field">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="contact.email" value="@contact?.email">
+        <span class="error">@_error("contact.email")</span>
+    </p>
+
+    <p class="buttons">
+     	<a href="/contacts">Cancel</a> or <input type="submit" value="Save this contact" id="saveContact">
+    </p>
+    
+    <script type="text/javascript" charset="utf-8">
+        $("#birthdate").datepicker({dateFormat:'yy-mm-dd', showAnim:'fadeIn'})
+	</script>
+</form>

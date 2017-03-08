@@ -1,0 +1,76 @@
+@extends(main, title: "List")
+
+<table>
+	<thead>
+		<tr>
+			<th class="name">Name</th>
+			<th class="firstname">First name</th>
+			<th class="birthdate">Birth date</th>
+			<th class="email">Email</th>
+			<th class="edit"></th>
+		</tr>
+	</thead>
+	<tbody>
+			@args List<Contact> contacts
+	    @for (Contact contact: contacts) {
+	    <tr class="contact" contactId="@contact.id@" draggable="true">
+   			<td id="name-@contact.id@">@contact.name@</td>
+   			<td id="firstname-@contact.id@">@contact.firstname</td>
+   			<td id="birthdate-@contact.id@">@contact?.birthdate?.format("yyyy-MM-dd")</td>
+   			<td id="email-@contact.id@">@contact.email</td>
+   			<td><a href="/contacts/@contact.id@">&gt;</a></td>
+   		</tr>
+	    }
+	    <tr>
+	        <form action="/contacts" method="post">
+	        <td><input type="text" name="contact.name"></td>
+	        <td><input type="text" name="contact.firstname"></td>
+	        <td><input type="text" name="contact.birthdate"></td>
+	        <td><input type="text" name="contact.email"></td>
+	        <td><input type="submit" value="+"></td>
+					</form>
+	    </tr>
+	</tbody>
+</table>
+
+<script type="text/javascript" charset="utf-8">
+
+    // In place edition
+    $(".contact td").editInPlace({
+        bg_over: 'transparent',
+        callback: function(el, n, o) {
+            var m = /([a-z]+)-(.+)/.exec(el), data = {}
+            data[m[1]] = n
+            
+            // Save result
+            $.ajax({
+                url: '/contacts/' + m[2],
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function() {$('#' + el).html(n)},
+                error: function() {$('#' + el).html(o)}
+            })
+            
+            return true
+        }
+    })
+    
+    // Drag & Drop
+    var dragIcon = document.createElement('img')
+    dragIcon.src = '/img/avatar.png'
+    var cancel = function cancel(e) {e.preventDefault()}
+    
+    $('#new')
+        .bind('dragover', cancel)
+        .bind('dragenter', cancel)
+        .bind('drop', function(e) {
+            document.location = "/contacts/" +　e.originalEvent.dataTransfer.getData('contactId')
+        })
+      
+    $('[draggable]').bind('dragstart', function(e) {
+        e.originalEvent.dataTransfer.setData('contactId', $(this).attr('contactId'));
+        e.originalEvent.dataTransfer.setDragImage(dragIcon, 0, -10);
+    })
+    
+</script>
