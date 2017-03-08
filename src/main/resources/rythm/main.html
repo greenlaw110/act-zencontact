@@ -20,12 +20,12 @@
 					@def navItem(String id, String href, String label) {
 						@navItem(id, href, label, label)
 					}
-					@def navItem(String id, String href, String label, String matchTitle) {
-						<a id="@id" href="@href" @if(matchTitle.equals(formTitle)) {class="selected"}>@label</a>
+					@def navItem(String id, String href, String label, String match) {
+					<a id="@id" href="@href" @if(title.equals(match)) {class="selected"}>@label</a>
 					}
 					@navItem("home", "/", "Home")
 					@navItem("list", "/contacts", "List")
-					@navItem("new", "/contacts/new", formTitle)
+					@navItem("new", "/contacts/new", formTitle, "Form")
     		</nav>
     		<section>
     		    @render()
